@@ -15,7 +15,7 @@ const RestaurantWidget = ({ restaurant }: { restaurant: Restaurant }) => {
         </View>
       </View>
       <View style={styles.infosWrap}>
-        <Text style={styles.stars}>★ {restaurant.rating}</Text>
+        <Text style={styles.stars}>{restaurant.rating} ★</Text>
         <Text style={styles.reviews}>{restaurant.review_count} reviews</Text>
       </View>
     </View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 3,
-    paddingHorizontal: 5,
+    paddingHorizontal: 8,
   },
   stars: {
     fontSize: 12,

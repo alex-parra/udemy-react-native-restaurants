@@ -5,14 +5,18 @@ import RestaurantWidget from './RestaurantWidget';
 import Restaurant from '../types/restaurant';
 
 const RestaurantsList = ({ title, restaurants }) => {
+  const [mainTitle, subTitle] = title.split(' - ');
   return (
     <View style={styles.wrap}>
       <View style={styles.titleWrap}>
-        <Text style={styles.title}>{title}</Text>
+        <View style={styles.titles}>
+          <Text style={styles.mainTitle}>{mainTitle}</Text>
+          <Text style={styles.subTitle}>{subTitle}</Text>
+        </View>
         <Text style={styles.count}>Found: {restaurants.length}</Text>
       </View>
+      {restaurants.length === 0 && <Text style={styles.noResults}>No results to show.</Text>}
       <FlatList
-        style={styles.list}
         horizontal
         showsHorizontalScrollIndicator={false}
         data={restaurants}
@@ -33,17 +37,32 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginRight: 10,
   },
-  title: {
+  titles: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  mainTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginHorizontal: 10,
+  },
+  subTitle: {
+    fontSize: 18,
+    color: '#999',
+    fontWeight: 'normal',
   },
   count: {
     fontSize: 12,
     color: '#999',
   },
-  list: {
-    //height: 180,
+  noResults: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#999',
+    marginTop: 10,
+    marginHorizontal: 10,
+    marginBottom: 50,
   },
 });
 
