@@ -1,37 +1,40 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
-import yelp from '../api/yelp';
+import useYelpRestaurants from '../hooks/useYelpRestaurants';
+
+import Restaurant from '../types/Restaurant';
 
 import SearchBar from '../components/SearchBar';
+import RestaurantsList from '../components/RestaurantsList';
+import RestaurantWidget from '../components/RestaurantWidget';
 
 const HomeScreen = props => {
   const [searchText, setSearch] = useState('');
-  const [restaurants, setRestaurants] = useState([]);
-
-  const handleSearchChange = text => {
-    setSearch(text);
-  };
+  const [restaurants, fetchRestaurants]: any = useYelpRestaurants();
 
   const handleSearchSubmit = () => {
-    navigator.geolocation.getCurrentPosition(pos => {
-      const { latitude, longitude } = pos.coords;
-      yelp.get('businesses/search', { params: { term: searchText, latitude, longitude } })
-        .then(({data}) => {
-          setRestaurants([ ...data.businesses ]);
-        })
-        .catch(error => {
-          console.error(error);
-        })
-    });
+    fetchRestaurants(searchText);
   };
 
   return (
-    <ScrollView>
-      <SearchBar text={searchText} onChange={handleSearchChange} onSubmit={handleSearchSubmit} />
-      <Text>Restaurants: ({restaurants.length})</Text>
-      {restaurants.map(r => <Text>{r.name}</Text>)}
-    </ScrollView>
+    <View>
+      <SearchBar text={searchText} onChange={setSearch} onSubmit={handleSearchSubmit} />
+      <Text style={styles.infosBar}>Restaurants: {restaurants.length}</Text>
+      <ScrollView>
+        <RestaurantsList title="€ - Cheap" restaurants={restaurants.filter((r: Restaurant) => r.price === '€')} />
+        <RestaurantsList title="€€ - Average" restaurants={restaurants.filter((r: Restaurant) => r.price === '€€')} />
+        <RestaurantsList title="€€€ - Deluxe" restaurants={restaurants.filter((r: Restaurant) => r.price === '€€€')} />
+      </ScrollView>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  infosBar: {
+    marginVertical: 3,
+    marginHorizontal: 15,
+    fontSize: 12,
+  },
+});
 
 export default HomeScreen;
