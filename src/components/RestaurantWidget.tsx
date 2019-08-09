@@ -8,9 +8,15 @@ const RestaurantWidget = ({ restaurant }: { restaurant: Restaurant }) => {
 
   return (
     <View style={styles.wrap}>
-      <Image style={styles.photo} source={{ uri: coverUrl }} />
-      <View style={styles.nameWrap}>
-        <Text style={styles.nameText}>{restaurant.name}</Text>
+      <View style={styles.cover}>
+        <Image style={styles.photo} source={{ uri: coverUrl }} />
+        <View style={styles.nameWrap}>
+          <Text style={styles.nameText}>{restaurant.name}</Text>
+        </View>
+      </View>
+      <View style={styles.infosWrap}>
+        <Text style={styles.stars}>★ {restaurant.rating}</Text>
+        <Text style={styles.reviews}>{restaurant.review_count} reviews</Text>
       </View>
     </View>
   );
@@ -19,7 +25,10 @@ const RestaurantWidget = ({ restaurant }: { restaurant: Restaurant }) => {
 const styles = StyleSheet.create({
   wrap: {
     margin: 10,
-    fontSize: 16,
+    height: 180,
+  },
+  cover: {
+    flex: 1,
     shadowColor: '#aaa',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 5,
@@ -40,10 +49,26 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: 0,
   },
   nameText: {
+    fontSize: 16,
     color: '#fff',
     paddingVertical: 5,
     paddingHorizontal: 10,
   },
+  infosWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 3,
+    paddingHorizontal: 5,
+  },
+  stars: {
+    fontSize: 12,
+    color: '#999',
+  },
+  reviews: {
+    fontSize: 12,
+    color: '#999',
+  }
 });
 
 export default RestaurantWidget;

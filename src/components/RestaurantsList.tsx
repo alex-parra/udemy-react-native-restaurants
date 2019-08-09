@@ -11,7 +11,14 @@ const RestaurantsList = ({ title, restaurants }) => {
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.count}>Found: {restaurants.length}</Text>
       </View>
-      <FlatList style={styles.list} horizontal data={restaurants} keyExtractor={item => item.id} renderItem={({ item }: { item: Restaurant }) => <RestaurantWidget restaurant={item} />} />
+      <FlatList
+        style={styles.list}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={restaurants}
+        keyExtractor={item => item.id}
+        renderItem={({ item }: { item: Restaurant }) => <RestaurantWidget restaurant={item} />}
+      />
     </View>
   );
 };
@@ -36,8 +43,8 @@ const styles = StyleSheet.create({
     color: '#999',
   },
   list: {
-    height: 180,
-  }
+    //height: 180,
+  },
 });
 
 export default RestaurantsList;

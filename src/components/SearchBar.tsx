@@ -13,7 +13,8 @@ const SearchBar = ({ text, onChange, onSubmit }) => {
 
 const styles = StyleSheet.create({
   wrap: {
-    margin: 5,
+    marginVertical: 5,
+    marginHorizontal: 10,
     backgroundColor: '#eee',
     borderRadius: 5,
     flexDirection: 'row',

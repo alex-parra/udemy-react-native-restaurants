@@ -3,4 +3,6 @@ export default interface Restaurant {
   image_url: string;
   name: string;
   price: string;
+  rating: number;
+  review_count: number;
 }
