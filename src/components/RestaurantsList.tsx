@@ -16,13 +16,7 @@ const RestaurantsList = ({ title, restaurants }) => {
         <Text style={styles.count}>Found: {restaurants.length}</Text>
       </View>
       {restaurants.length === 0 && <Text style={styles.noResults}>No results to show.</Text>}
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={restaurants}
-        keyExtractor={item => item.id}
-        renderItem={({ item }: { item: Restaurant }) => <RestaurantWidget restaurant={item} />}
-      />
+      <FlatList horizontal showsHorizontalScrollIndicator={false} data={restaurants} keyExtractor={item => item.id} renderItem={({ item }: { item: Restaurant }) => <RestaurantWidget restaurant={item} />} />
     </View>
   );
 };

@@ -1,24 +1,31 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableHighlight } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
 import Restaurant from '../types/Restaurant';
 
-const RestaurantWidget = ({ restaurant }: { restaurant: Restaurant }) => {
+const RestaurantWidget = props => {
+  const { navigation } = props;
+
+  const restaurant: Restaurant = props.restaurant;
+
   const coverUrl = restaurant.image_url || 'https://via.placeholder.com/1000x1000.png?text=' + restaurant.name;
 
   return (
-    <View style={styles.wrap}>
-      <View style={styles.cover}>
-        <Image style={styles.photo} source={{ uri: coverUrl }} />
-        <View style={styles.nameWrap}>
-          <Text style={styles.nameText}>{restaurant.name}</Text>
+    <TouchableHighlight onPress={() => navigation.navigate('Restaurant', { id: restaurant.id })}>
+      <View style={styles.wrap}>
+        <View style={styles.cover}>
+          <Image style={styles.photo} source={{ uri: coverUrl }} />
+          <View style={styles.nameWrap}>
+            <Text style={styles.nameText}>{restaurant.name}</Text>
+          </View>
+        </View>
+        <View style={styles.infosWrap}>
+          <Text style={styles.stars}>{restaurant.rating} ★</Text>
+          <Text style={styles.reviews}>{restaurant.review_count} reviews</Text>
         </View>
       </View>
-      <View style={styles.infosWrap}>
-        <Text style={styles.stars}>{restaurant.rating} ★</Text>
-        <Text style={styles.reviews}>{restaurant.review_count} reviews</Text>
-      </View>
-    </View>
+    </TouchableHighlight>
   );
 };
 
@@ -68,7 +75,7 @@ const styles = StyleSheet.create({
   reviews: {
     fontSize: 12,
     color: '#999',
-  }
+  },
 });
 
-export default RestaurantWidget;
+export default withNavigation(RestaurantWidget);

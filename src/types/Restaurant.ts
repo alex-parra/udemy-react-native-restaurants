@@ -5,4 +5,9 @@ export default interface Restaurant {
   price: string;
   rating: number;
   review_count: number;
+  location: {
+    city: string;
+    country: string;
+  };
+  display_phone: string;
 }

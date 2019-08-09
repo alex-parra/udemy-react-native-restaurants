@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginBottom: 50,
     textAlign: 'center',
-  }
+  },
 });
 
 export default HomeScreen;
